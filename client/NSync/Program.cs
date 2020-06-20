@@ -5,60 +5,47 @@ using Windows.UI.Notifications.Management;
 using System.Collections.Generic;
 using Windows.UI.Notifications;
 using Windows.Foundation.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace NSync
 {
-
-    class NotificationInterceptor
-    {
-        private readonly UserNotificationListener listener;
-
-        public NotificationInterceptor()
-        {
-            this.listener = UserNotificationListener.Current;
-            //ToastNotificationManager.CreateToastNotifier("NSync");
-        }
-
-        public async void SyncNotifications()
-        {
-            IReadOnlyList<UserNotification> notifs = await this.listener.GetNotificationsAsync(NotificationKinds.Toast);
-
-            foreach (UserNotification notif in notifs)
-            {
-                Console.WriteLine("Found notification!");
-                Console.WriteLine(notif.Id);
-                // send HttpClient request of new notification
-            }
-
-            this.listener.ClearNotifications();
-        }
-    }
-
     class Program
     {
-        static void Main()
+        async static Task<int> Main()
         {
+            var listener = UserNotificationListener.Current;
+
             if (! ApiInformation.IsTypePresent("Windows.UI.Notifications.Management.UserNotificationListener"))
             {
                 Console.WriteLine("can't listen?");
             }
             
-            var interceptor = new NotificationInterceptor();
-
             while (true)
             {
-                Console.Write("Checking...");
                 try
                 {
-                    interceptor.SyncNotifications();
+                    Console.Write("Checking...");
+
+                    // TODO: why does this fail "Element Not Found"?
+                    IReadOnlyList<UserNotification> notifs = await listener.GetNotificationsAsync(NotificationKinds.Toast);
+
+                    foreach (UserNotification notif in notifs)
+                    {
+                        Console.WriteLine("Found notification!");
+                        Console.WriteLine(notif.Id);
+                        // send HttpClient request of new notification
+                    }
+
+                    listener.ClearNotifications();
+
+                    Console.WriteLine("done.");
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
                 }
-                Console.WriteLine("done.");
-                Thread.Sleep(5000);
+                Console.WriteLine("Waiting.");
+                Thread.Sleep(300);
             }
         }
     }

@@ -71,5 +71,6 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <uap3:Capability Name="userNotificationListener"/>
+    <Capability Name="internetClientServer"/>
   </Capabilities>
 </Package>
