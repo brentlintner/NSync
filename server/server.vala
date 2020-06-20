@@ -22,7 +22,7 @@ void default_handler (Soup.Server server, Soup.Message msg, string path,
 }
 
 void main () {
-  var server = new Soup.Server (Soup.SERVER_PORT, 8088);
+  var server = new Soup.Server (Soup.SERVER_PORT, 8000);
   Notify.init ("Notification Sync");
   server.add_handler ("/", default_handler);
   server.run ();
