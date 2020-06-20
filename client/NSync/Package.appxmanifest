@@ -7,14 +7,15 @@
   xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
   xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" 
   xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" 
-  IgnorableNamespaces="uap mp uap5 iot2 desktop4">
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" 
+  IgnorableNamespaces="uap mp uap5 iot2 desktop4 uap3">
 
   <Identity
-    Name="1dddaeb3-12ce-48d3-8b69-16e5a8f28b3e"
+    Name="52bf8c17-12d3-48e4-8994-2b217ab6dee6"
     Publisher="CN=brent"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="1dddaeb3-12ce-48d3-8b69-16e5a8f28b3e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="52bf8c17-12d3-48e4-8994-2b217ab6dee6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>NSync</DisplayName>
@@ -69,5 +70,6 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap3:Capability Name="userNotificationListener"/>
   </Capabilities>
 </Package>
